@@ -1,0 +1,91 @@
+<div class="container mt-4 text-center">
+    <h2 class="text-light mb-4">🧾 Detalle de Venta</h2>
+
+    <!-- 🔹 FORMULARIO PARA REGISTRAR O EDITAR DETALLES DE VENTA -->
+    <form (ngSubmit)="guardar()" class="mb-4 bg-dark p-4 rounded shadow text-start text-light">
+        <div class="row g-3">
+
+            <!-- Selección de producto -->
+   <div class="col-md-4">
+  <select
+    [(ngModel)]="detalleActual.producto"
+    name="producto"
+    class="form-control"
+    required
+    (change)="actualizarPrecio()">
+
+    <option [ngValue]="undefined">Seleccione un producto</option>
+    <option *ngFor="let p of productos" [ngValue]="p">
+      {{ p.nombre }} - S/ {{ p.precio }}
+    </option>
+  </select>
+</div>
+
+
+
+            <!-- Campo: Cantidad -->
+            <div class="col-md-2">
+                <input type="number" [(ngModel)]="detalleActual.cantidad" name="cantidad" (input)="calcularSubtotal()"
+                    class="form-control" placeholder="Cantidad" min="1" required>
+            </div>
+
+            <!-- Campo: Precio Unitario -->
+            <div class="col-md-3">
+                <input type="number" [(ngModel)]="detalleActual.precioUnitario" name="precioUnitario"
+                    (input)="calcularSubtotal()" class="form-control" placeholder="Precio Unitario" step="any" required>
+            </div>
+
+            <!-- Campo: Subtotal (solo lectura) -->
+            <div class="col-md-2">
+                <input type="number" [(ngModel)]="detalleActual.subtotal" name="subtotal" class="form-control"
+                    placeholder="Subtotal" readonly>
+            </div>
+
+            <!-- Botón Guardar o Actualizar -->
+            <div class="col-md-1 text-end">
+                <button class="btn btn-success w-100" type="submit">
+                    {{ editando ? 'Actualizar' : 'Guardar' }}
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 🔹 TABLA DE DETALLES DE VENTA -->
+    <div class="table-responsive">
+        <table class="table table-striped table-dark align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 🔸 Recorre todos los detalles de venta -->
+                <tr *ngFor="let d of detalles">
+                    <td>{{ d.id }}</td>
+                    <td>{{ d.producto?.nombre }}</td>
+                    <td>{{ d.cantidad }}</td>
+                    <td>S/ {{ d.precioUnitario | number:'1.2-2' }}</td>
+                    <td>S/ {{ d.subtotal | number:'1.2-2' }}</td>
+
+                    <!-- 🔸 Botones para editar o eliminar -->
+                    <td>
+                        <button class="btn btn-warning btn-sm me-2" (click)="editar(d)">✏️</button>
+                        <button class="btn btn-danger btn-sm" (click)="eliminar(d.id)">🗑️</button>
+                    </td>
+                </tr>
+
+                <!-- 🔸 Mensaje si no hay registros -->
+                <tr *ngIf="detalles.length === 0">
+                    <td colspan="6" class="text-center text-muted py-3">
+                        No hay detalles registrados
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<!-- 🔹 Tu navbar fijo arriba -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary" routerLink="/inicio">
+      🏥 VENTAS DEL DÍA
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" routerLink="/inicio" routerLinkActive="actives">Inicio</a>
+        <a class="nav-link" routerLink="/productos" routerLinkActive="active">Producto</a>
+        <a class="nav-link" routerLink="/clientes" routerLinkActive="active">Clientes</a>
+        <a class="nav-link" routerLink="/ventas" routerLinkActive="active">Venta Detalle</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- 🔹 Aquí se mostrarán las páginas -->
+<router-outlet></router-outlet>
